@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import postgres, { Error } from "postgres";
+import postgres from "postgres";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
