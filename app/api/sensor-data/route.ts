@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import postgres from "postgres";
+import postgres, { Error } from "postgres";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -8,9 +8,9 @@ export async function GET() {
     const data =
       await sql`SELECT * FROM sensor_data ORDER BY inserted_at DESC LIMIT 15`;
     return NextResponse.json({ data }, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error }, { status: 500 });
   }
 }
 
@@ -19,8 +19,8 @@ export async function POST(req: NextRequest) {
     const { temperature, humidity } = await req.json();
     await sql`INSERT INTO sensor_data (temperature, humidity) VALUES (${temperature}, ${humidity})`;
     return NextResponse.json({ message: "Data inserted" }, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.log(error);
-    return NextResponse.json({ status: 500, error: error.message });
+    return NextResponse.json({ status: 500, error });
   }
 }
