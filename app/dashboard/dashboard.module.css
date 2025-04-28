@@ -1,0 +1,22 @@
+.current_readings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.chart_container {
+  width: 100%;
+  height: 20rem;
+}
+
+.gauges {
+  width: 10rem;
+}
+
+.header {
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+}

@@ -1,19 +1,16 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import css from "./dashboard/dashboard.module.css"
 import CurrentReadings from "./dashboard/CurrentReadings";
 import SensorDataChart from "./dashboard/SensorDataChart";
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-
-        <div className="flex flex-col gap-8 p-8">
-          <h1 className="text-3xl font-bold">Sensor Dashboard</h1>
-          <CurrentReadings />
-          <SensorDataChart />
-        </div>
-
+        <h1 className={css.header}>Sensor Dashboard</h1>
+        <CurrentReadings />
+        <SensorDataChart />
       </main>
       {/* <footer className={styles.footer}>
         <a
