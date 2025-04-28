@@ -1,6 +1,6 @@
-import Image from "next/image";
+// import Image from "next/image";
 import styles from "./page.module.css";
-import css from "./dashboard/dashboard.module.css"
+import css from "./dashboard/dashboard.module.css";
 import CurrentReadings from "./dashboard/CurrentReadings";
 import SensorDataChart from "./dashboard/SensorDataChart";
 
