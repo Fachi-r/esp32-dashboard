@@ -3,14 +3,17 @@ import styles from "./page.module.css";
 import css from "./dashboard/dashboard.module.css";
 import CurrentReadings from "./dashboard/CurrentReadings";
 import SensorDataChart from "./dashboard/SensorDataChart";
+import ToggleBulb from "./dashboard/ToggleBulb";
 
 export default async function Home() {
+  // TODO Add Bulb functionality
   return (
     <div className={styles.page}>
       <main className={styles.main}>
         <h1 className={css.header}>Sensor Dashboard</h1>
         <CurrentReadings />
         <SensorDataChart />
+        <ToggleBulb />
       </main>
       {/* <footer className={styles.footer}>
         <a
