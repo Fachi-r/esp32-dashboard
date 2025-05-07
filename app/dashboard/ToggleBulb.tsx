@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./dashboard.module.css";
 import { Button } from "@mui/joy";
 
 export default function ToggleBulb() {

@@ -39,20 +39,20 @@ export async function POST(req: NextRequest) {
       { message: `Bulb turned ${command}` },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     clearTimeout(timeoutId);
 
-    if (error.name === "AbortError") {
-      console.error("[bulb] Request to bridge timed out");
-      return NextResponse.json(
-        { message: "Bridge request timed out" },
-        { status: 504 }
-      );
-    }
+    // if (error.name === "AbortError") {
+    //   console.error("[bulb] Request to bridge timed out");
+    //   return NextResponse.json(
+    //     { message: "Bridge request timed out" },
+    //     { status: 504 }
+    //   );
+    // }
 
     console.error("[bulb] Fetch error:", error);
     return NextResponse.json(
-      { message: "Failed to toggle bulb", detail: error.message },
+      { message: "Failed to toggle bulb", detail: error },
       { status: 500 }
     );
   }
