@@ -11,6 +11,7 @@ export default function ToggleBulb() {
   const toggleBulb = async () => {
     setLoading(true);
     const command = isOn ? "off" : "on";
+    // console.log(`Sent the command variable containing: ${command}`);
 
     try {
       const res = await fetch("/api/bulb", {
@@ -31,15 +32,10 @@ export default function ToggleBulb() {
     }
   };
 
-  const variant = isOn ? "solid" : "soft"
+  const variant = isOn ? "solid" : "soft";
 
   return (
-    <Button
-      variant={variant}
-      size="lg"
-      loading={loading}
-      onClick={toggleBulb}
-    >
+    <Button variant={variant} size="lg" loading={loading} onClick={toggleBulb}>
       {isOn ? "Turn Bulb Off" : "Turn Bulb On"}
     </Button>
   );

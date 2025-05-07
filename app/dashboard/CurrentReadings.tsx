@@ -32,12 +32,9 @@ export default function CurrentReadings() {
   if (!data) return <div>Loading...</div>;
 
   return (
-    // <div className="flex gap-8 justify-center">
     <div className={styles.current_readings}>
       <div className={styles.gauges}>
         <CircularProgressbar
-          // value={Math.min(22.5, 100)}
-          // text={`22.5°C`}
           value={Math.min(data.temperature, 100)}
           text={`${data.temperature.toFixed(1)}°C`}
           styles={buildStyles({
@@ -48,8 +45,6 @@ export default function CurrentReadings() {
       </div>
       <div className={styles.gauges}>
         <CircularProgressbar
-          // value={Math.min(68, 100)}
-          // text={`68%`}
           value={Math.min(data.humidity, 100)}
           text={`${data.humidity.toFixed(1)}%`}
           styles={buildStyles({
