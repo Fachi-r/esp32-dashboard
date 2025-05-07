@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import styles from "./dashboard.module.css";
+import { Button } from "@mui/joy";
 
 export default function ToggleBulb() {
   const [isOn, setIsOn] = useState(false);
@@ -29,15 +31,16 @@ export default function ToggleBulb() {
     }
   };
 
+  const variant = isOn ? "solid" : "soft"
+
   return (
-    <button
+    <Button
+      variant={variant}
+      size="lg"
+      loading={loading}
       onClick={toggleBulb}
-      disabled={loading}
-      className={`px-4 py-2 rounded text-white font-semibold ${
-        isOn ? "bg-green-600" : "bg-gray-600"
-      } hover:opacity-90 transition`}
     >
-      {loading ? "Sending..." : isOn ? "Turn Off" : "Turn On"}
-    </button>
+      {isOn ? "Turn Bulb Off" : "Turn Bulb On"}
+    </Button>
   );
 }

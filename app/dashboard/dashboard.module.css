@@ -16,7 +16,28 @@
 }
 
 .header {
-    font-size: 40px;
-    font-weight: bold;
-    text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.toggle_button {
+  padding: 1rem 2rem;
+  border: none;
+  outline: none;
+  border-radius: 20rem;
+  color: white;
+  font-weight: bolder;
+  font-size: 1em;
+  transition: 300ms ease;
+}
+.toggle_button:hover {
+  opacity: 0.9;
+}
+
+.bg_green {
+  background-color: #20a72b;
+}
+.bg_gray {
+  background-color: #8d8d8d;
 }
