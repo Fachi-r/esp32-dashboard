@@ -4,10 +4,8 @@ import { useEffect, useState } from "react";
 // Custom Hook for WebSocket
 export default function useWebSocket() {
   const [sensorData, setSensorData] = useState({
-    // id: Math.random(),
     temperature: 0,
     humidity: 0,
-    // inserted_at: Date.now(),
   });
   const [bulbStatus, setBulbStatus] = useState(false);
   const [healthStatus, setHealthStatus] = useState("");
@@ -24,14 +22,13 @@ export default function useWebSocket() {
       switch (data.type) {
         case "sensor-data":
           setSensorData({
-            // id: data.id,
             temperature: data.temperature,
             humidity: data.humidity,
-            // inserted_at: data.inserted_at,
           });
           break;
         case "bulb-status":
-          setBulbStatus(data.isOn);
+          const isOn = data.isOn == "on" ? true : false;
+          setBulbStatus(isOn);
           break;
         case "esp32-health":
           setHealthStatus(data.status);

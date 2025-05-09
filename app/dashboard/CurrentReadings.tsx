@@ -13,9 +13,9 @@ interface Props {
 export default function CurrentReadings() {
   const { sensorData, bulbStatus, healthStatus } = useWebSocket();
 
-  console.log(
-    `Sensor Data: ${sensorData.temperature} ${sensorData.humidity} \n Bulb Status: ${bulbStatus} \n ESP Health: ${healthStatus}`
-  );
+  // console.log(
+  //   `Sensor Data: ${sensorData.temperature} ${sensorData.humidity} \n Bulb Status: ${bulbStatus} \n ESP Health: ${healthStatus}`
+  // );
 
   return (
     <div className={styles.current_readings}>
