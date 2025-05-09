@@ -2,28 +2,29 @@
 
 import { useState } from "react";
 import { Button } from "@mui/joy";
+import useWebSocket from "../hooks/useSensorData";
 
 export default function ToggleBulb() {
-  const [isOn, setIsOn] = useState(false);
+  const { bulbStatus, healthStatus } = useWebSocket();
+
+  const isOn = bulbStatus;
   const [loading, setLoading] = useState(false);
 
   const toggleBulb = async () => {
     setLoading(true);
-    const command = isOn ? "off" : "on";
-    // console.log(`Sent the command variable containing: ${command}`);
+    const state = isOn ? "off" : "on";
 
     try {
-      const res = await fetch("/api/bulb", {
+      const res = await fetch("http://localhost:4000/bulb", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ command }),
+        body: JSON.stringify({ state }),
       });
 
       if (!res.ok) throw new Error("Failed to toggle bulb");
 
-      setIsOn(!isOn);
     } catch (err) {
       console.error("Error toggling bulb:", err);
     } finally {
@@ -34,8 +35,18 @@ export default function ToggleBulb() {
   const variant = isOn ? "solid" : "soft";
 
   return (
-    <Button variant={variant} size="lg" loading={loading} onClick={toggleBulb}>
-      {isOn ? "Turn Bulb Off" : "Turn Bulb On"}
+    <Button
+      variant={variant}
+      size="lg"
+      loading={loading}
+      disabled={healthStatus !== "alive"}
+      onClick={toggleBulb}
+    >
+      {healthStatus === "alive"
+        ? isOn
+          ? "Turn Bulb Off"
+          : "Turn Bulb On"
+        : "ESP32 is offline"}
     </Button>
   );
 }

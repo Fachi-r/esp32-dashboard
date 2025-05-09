@@ -1,42 +1,28 @@
 "use client";
 
 import styles from "../dashboard/dashboard.module.css";
-import { useEffect, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import useWebSocket from "../hooks/useSensorData";
 
-type SensorData = {
+interface Props {
   temperature: number;
   humidity: number;
-};
+}
 
 export default function CurrentReadings() {
-  const [data, setData] = useState<SensorData | null>(null);
+  const { sensorData, bulbStatus, healthStatus } = useWebSocket();
 
-  const fetchLatestData = async () => {
-    const res = await fetch("/api/sensor-data", { cache: "no-store" });
-    const { data } = await res.json();
-    // console.log(data[0]);
-
-    if (data.length > 0) {
-      setData(data[0]);
-    }
-  };
-
-  useEffect(() => {
-    fetchLatestData();
-    const interval = setInterval(fetchLatestData, 3000); // Poll every 3s
-    return () => clearInterval(interval);
-  }, []);
-
-  if (!data) return <div>Loading...</div>;
+  console.log(
+    `Sensor Data: ${sensorData.temperature} ${sensorData.humidity} \n Bulb Status: ${bulbStatus} \n ESP Health: ${healthStatus}`
+  );
 
   return (
     <div className={styles.current_readings}>
       <div className={styles.gauges}>
         <CircularProgressbar
-          value={Math.min(data.temperature, 100)}
-          text={`${data.temperature.toFixed(1)}°C`}
+          value={Math.min(sensorData.temperature, 100)}
+          text={`${sensorData.temperature.toFixed(1)}°C`}
           styles={buildStyles({
             pathColor: "#f87171",
             textColor: "#f87171",
@@ -45,8 +31,8 @@ export default function CurrentReadings() {
       </div>
       <div className={styles.gauges}>
         <CircularProgressbar
-          value={Math.min(data.humidity, 100)}
-          text={`${data.humidity.toFixed(1)}%`}
+          value={Math.min(sensorData.humidity, 100)}
+          text={`${sensorData.humidity.toFixed(1)}%`}
           styles={buildStyles({
             pathColor: "#60a5fa",
             textColor: "#60a5fa",

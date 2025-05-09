@@ -1,12 +1,10 @@
-// import Image from "next/image";
 import styles from "./page.module.css";
 import css from "./dashboard/dashboard.module.css";
 import CurrentReadings from "./dashboard/CurrentReadings";
-import SensorDataChart from "./dashboard/SensorDataChart";
 import ToggleBulb from "./dashboard/ToggleBulb";
+import SensorDataChart from "./dashboard/SensorDataChart";
 
 export default async function Home() {
-  // TODO Add Bulb functionality
   return (
     <div className={styles.page}>
       <main className={styles.main}>
