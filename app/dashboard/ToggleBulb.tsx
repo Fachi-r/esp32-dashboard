@@ -2,16 +2,15 @@
 
 import { useState } from "react";
 import { Button } from "@mui/joy";
-import useWebSocket from "../hooks/useSensorData";
+import useWebSocket, { WEBSOCKET_URL } from "../hooks/useSensorData";
 
 export default function ToggleBulb() {
   const { bulbStatus, healthStatus } = useWebSocket();
-  const isOn = bulbStatus;
-  
   const [loading, setLoading] = useState(false);
+  const isOn = bulbStatus;
 
   const toggleBulb = async () => {
-    // set up a 5s timeout on our HTTP call
+    // set a 5s timeout on HTTP call
     const controller = new AbortController();
     const timeoutId = setTimeout(() => {
       controller.abort();
@@ -22,7 +21,7 @@ export default function ToggleBulb() {
     const state = isOn ? "off" : "on";
 
     try {
-      const res = await fetch("http://localhost:4001/bulb", {
+      const res = await fetch(`${WEBSOCKET_URL}/bulb`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,10 +45,10 @@ export default function ToggleBulb() {
       variant={variant}
       size="lg"
       loading={loading}
-      disabled={healthStatus !== "alive"}
+      disabled={healthStatus !== "online"}
       onClick={toggleBulb}
     >
-      {healthStatus === "alive"
+      {healthStatus === "online"
         ? isOn
           ? "Turn Bulb Off"
           : "Turn Bulb On"

@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 
+export const WEBSOCKET_URL = "https://mqtt-server-production.up.railway.app";
+
 // Custom Hook for WebSocket
 export default function useWebSocket() {
   const [sensorData, setSensorData] = useState({
@@ -9,9 +11,10 @@ export default function useWebSocket() {
   });
   const [bulbStatus, setBulbStatus] = useState(false);
   const [healthStatus, setHealthStatus] = useState("");
+  let heartbeatTimeout: ReturnType<typeof setTimeout>;
 
   useEffect(() => {
-    const socket = new WebSocket("http://localhost:4000"); // Use your server URL
+    const socket = new WebSocket(WEBSOCKET_URL);
 
     socket.onopen = () => {
       console.log("WebSocket connected");
@@ -31,7 +34,13 @@ export default function useWebSocket() {
           setBulbStatus(isOn);
           break;
         case "esp32-health":
-          setHealthStatus(data.status);
+          // Reset timer on heartbeat
+          clearTimeout(heartbeatTimeout);
+          setHealthStatus("online");
+          // If no heartbeat in 10 seconds, mark as offline
+          heartbeatTimeout = setTimeout(() => {
+            setHealthStatus("offline");
+          }, 10000);
           break;
         default:
           console.log("Unknown message type:", data);
