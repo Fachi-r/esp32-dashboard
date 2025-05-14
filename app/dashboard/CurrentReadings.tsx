@@ -5,13 +5,8 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import useWebSocket from "../hooks/useSensorData";
 
-interface Props {
-  temperature: number;
-  humidity: number;
-}
-
 export default function CurrentReadings() {
-  const { sensorData, bulbStatus, healthStatus } = useWebSocket();
+  const { sensorData } = useWebSocket();
 
   // console.log(
   //   `Sensor Data: ${sensorData.temperature} ${sensorData.humidity} \n Bulb Status: ${bulbStatus} \n ESP Health: ${healthStatus}`
@@ -20,6 +15,7 @@ export default function CurrentReadings() {
   return (
     <div className={styles.current_readings}>
       <div className={styles.gauges}>
+        {/* <p>Temperature</p> */}
         <CircularProgressbar
           value={Math.min(sensorData.temperature, 100)}
           text={`${sensorData.temperature.toFixed(1)}°C`}
@@ -30,6 +26,7 @@ export default function CurrentReadings() {
         />
       </div>
       <div className={styles.gauges}>
+        {/* <p>Humidity</p> */}
         <CircularProgressbar
           value={Math.min(sensorData.humidity, 100)}
           text={`${sensorData.humidity.toFixed(1)}%`}

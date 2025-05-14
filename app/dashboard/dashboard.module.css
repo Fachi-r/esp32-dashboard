@@ -1,22 +1,29 @@
 .current_readings {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   padding: 2rem;
   gap: 2rem;
 }
 
 .chart_container {
   width: 100%;
-  height: 20rem;
+  height: 24rem;
 }
 
 .gauges {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.5em;
+  text-align: center;
+  color: #8d8d8d;
   width: 10rem;
 }
 
 .header {
-  font-size: 40px;
+  font-size: 3em;
   font-weight: bold;
   text-align: center;
 }
